@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JChat Server 2.0:jar">
+    <output-path>$PROJECT_DIR$/../JChat jars</output-path>
+    <root id="archive" name="JChat Server 2.0.jar">
+      <element id="module-output" name="JChat Server 2.0" />
+    </root>
+  </artifact>
+</component>

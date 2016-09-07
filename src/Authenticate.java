@@ -9,7 +9,10 @@ public class Authenticate {
 
     public static User login (String user, String pass) {
         try {
-            FileInputStream fis = new FileInputStream(new File(userFile));
+            File file = new File(userFile);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            FileInputStream fis = new FileInputStream(file);
 
             //Construct BufferedReader from InputStreamReader
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
@@ -36,7 +39,11 @@ public class Authenticate {
     }
     public static User signup (String user, String pass) {
         try {
-            FileInputStream fis = new FileInputStream(new File(userFile));
+            File file = new File(userFile);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+
+            FileInputStream fis = new FileInputStream(file);
             //Construct BufferedReader from InputStreamReader
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
             String total = "";
@@ -57,7 +64,10 @@ public class Authenticate {
     }
     public static boolean update (boolean UpdateType, User user) {
         try {
-            FileInputStream fis = new FileInputStream(new File(userFile));
+            File file = new File(userFile);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            FileInputStream fis = new FileInputStream(file);
             //Construct BufferedReader from InputStreamReader
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
             String total = "";
