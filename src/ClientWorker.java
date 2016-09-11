@@ -2,6 +2,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Stack;
 
 /**
  * Created by Evan on 8/30/2016.
@@ -25,6 +28,8 @@ public class ClientWorker implements Runnable {
 
     String nick;
 
+    ArrayList messages;
+
     public ClientWorker (JServer jServer, int id, Socket socket) {
         this.client = socket;
         this.jServer = jServer;
@@ -34,10 +39,11 @@ public class ClientWorker implements Runnable {
         nick = "Anon";
         commands = new Command[] {new UserListCommand(jServer, id), new StopCommand(jServer, id), new SignInCommand(jServer, id), new SignUpCommand(jServer, id), new PromoteCommand(jServer, id), new PrivateMessageCommand(jServer, id), new SignOutCommand(jServer, id)};
         delay = 100;
+        messages = new ArrayList();
     }
 
     public void run() {
-        message = "c000000000,JChat Server 2.0";
+        messages.add("c000000000,JChat Server 2.0");
         pendingMessage = true;
         //Handle connections with clients
         DataInputStream in = null;
@@ -55,10 +61,21 @@ public class ClientWorker implements Runnable {
             try {
                 if (pendingMessage) {
                     //TODO: Explore making message a array
-
-                    out.writeUTF(message);
-
+                   // if (!messages.isEmpty()) {
+                        //out.writeUTF((String)messages.pop());
+                   // }
+                    String total = "";
+                    Iterator iterator = messages.iterator();
+                    while (iterator.hasNext()) {
+                        total += (String)iterator.next();
+                    }
+                    messages = new ArrayList();
+                    out.writeUTF(total);
                     pendingMessage = false;
+                    //if (messages.isEmpty()) {
+                     //   pendingMessage = false;
+                    //}
+
                 }
                 else {
                     out.writeUTF("Alive");
@@ -98,7 +115,8 @@ public class ClientWorker implements Runnable {
     }
 
     public void sendMessage(String message) {
-        this.message = message;
+        //this.message = message;
+        messages.add(message);
         pendingMessage = true;
     }
 
