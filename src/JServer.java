@@ -123,6 +123,7 @@ public class JServer {
             client.sendMessage("c000000000,Guest chat is not allowed on this server.");
         }
         else {
+            System.out.println(id + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
             for (ClientWorker c: clients) {
                 c.sendMessage("c000000000," + id + " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c000000000,] " + "<" + client.nick + "> " + message);
             }
