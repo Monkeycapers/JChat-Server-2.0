@@ -30,6 +30,8 @@ public class ClientWorker implements Runnable {
 
     ArrayList messages;
 
+    int currentLobby;
+
     public ClientWorker (JServer jServer, int id, Socket socket) {
         this.client = socket;
         this.jServer = jServer;
@@ -40,10 +42,11 @@ public class ClientWorker implements Runnable {
         commands = new Command[] {new UserListCommand(jServer, id), new StopCommand(jServer, id), new SignInCommand(jServer, id), new SignUpCommand(jServer, id), new PromoteCommand(jServer, id), new PrivateMessageCommand(jServer, id), new SignOutCommand(jServer, id)};
         delay = 100;
         messages = new ArrayList();
+        currentLobby = -1;
     }
 
     public void run() {
-        messages.add("c000000000,JChat Server 2.0");
+        message = "c000000000,JChat Server 2.0";
         pendingMessage = true;
         //Handle connections with clients
         DataInputStream in = null;
@@ -52,6 +55,7 @@ public class ClientWorker implements Runnable {
         try {
             in = new DataInputStream(client.getInputStream());
             out = new DataOutputStream(client.getOutputStream());
+            Logger.logMessage("[Info]: Client info: " + client.getLocalAddress().toString());
         }
         catch (Exception e) {
             System.out.println("Could not create in/out streams");
@@ -60,22 +64,8 @@ public class ClientWorker implements Runnable {
             //send message out
             try {
                 if (pendingMessage) {
-                    //TODO: Explore making message a array
-                   // if (!messages.isEmpty()) {
-                        //out.writeUTF((String)messages.pop());
-                   // }
-                    String total = "";
-                    Iterator iterator = messages.iterator();
-                    while (iterator.hasNext()) {
-                        total += (String)iterator.next();
-                    }
-                    messages = new ArrayList();
-                    out.writeUTF(total);
+                    out.writeUTF(message);
                     pendingMessage = false;
-                    //if (messages.isEmpty()) {
-                     //   pendingMessage = false;
-                    //}
-
                 }
                 else {
                     out.writeUTF("Alive");
@@ -95,13 +85,24 @@ public class ClientWorker implements Runnable {
                 }
                 else if (split[1].startsWith("Message")) {
                     //Message
-                    jServer.sendMessage(split[2], id);
+                    jServer.sendMessage(split[2], id, currentLobby);
                 }
                 else if (split[1].startsWith("/")) {
                     String name = split[1];
                     for (Command c : commands) {
                         if (c.name.equals(name)) {
-                            sendMessage("c000000000,[Server] to you: " + c.parse(line, user));
+                            Logger.logMessage("[Info]: Client " + id + " [" + user.rank.name() + "] " + "(" + user.username + ") " + "<" + nick + "> " + "used command: " + c.name);
+                            String message = c.parse(line, user);
+                            if (c.returnType == ReturnType.MessageSender) {
+                                sendMessage("c000000000,[Server] to you: " + message);
+                            }
+                            else if (c.returnType == ReturnType.MessageAll) {
+                                jServer.sendMessage("c000000000," + message, id, currentLobby);
+                            }
+                            else {
+                                //do nothing with the parsed command
+                                //c.parse(line, user);
+                            }
                             break;
                         }
                     }
@@ -115,8 +116,8 @@ public class ClientWorker implements Runnable {
     }
 
     public void sendMessage(String message) {
-        //this.message = message;
-        messages.add(message);
+        this.message += message;
+        //messages.add(message);
         pendingMessage = true;
     }
 

@@ -24,6 +24,10 @@ public class JServer {
 
     Map <Rank, Color> rankColors = new HashMap<Rank, Color>();
 
+    CardGamePlayer cardGamePlayer;
+
+    ArrayList<Lobby> lobbys;
+
     public static void main (String[] args) {
         new JServer(Integer.parseInt(args[0]));
     }
@@ -33,7 +37,7 @@ public class JServer {
         this.portNumber = portNumber;
         clientFactory = new ClientFactory(this);
         clients = new ArrayList<ClientWorker>();
-
+        lobbys = new ArrayList<Lobby>();
         new Thread(clientFactory).start();
     }
 
@@ -117,17 +121,38 @@ public class JServer {
         return total.substring(0, total.length() - 1);
     }
 
-    public void sendMessage (String message, int id) {
+    public void sendMessage (String message, int id, int lobbyId) {
         ClientWorker client = getClient(id);
+
         if ((client.user.rank == Rank.Guest) && !guestChat) {
             client.sendMessage("c000000000,Guest chat is not allowed on this server.");
         }
         else {
             System.out.println(id + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
             for (ClientWorker c: clients) {
-                c.sendMessage("c000000000," + id + " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c000000000,] " + "<" + client.nick + "> " + message);
+                if (c.currentLobby == lobbyId) {
+                    c.sendMessage("c000000000," + id + " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c000000000,] " + "<" + client.nick + "> " + message);
+                }
             }
+            Logger.logMessage(id + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
         }
+    }
+
+    public void createLobby(int id, String name, boolean isPublic) {
+        Lobby lobby = new Lobby(name, isPublic, id);
+        lobbys.add(lobby);
+        getClient(id).currentLobby = lobbys.indexOf(lobby);
+    }
+
+    public void addToLobby(int lobbyId, int id) {
+        Lobby lobby = lobbys.get(lobbyId);
+        lobby.clients.add(id);
+        getClient(id).currentLobby = lobbyId;
+    }
+
+    public int getLobby(String name) {
+
+        return -1;
     }
 
 }

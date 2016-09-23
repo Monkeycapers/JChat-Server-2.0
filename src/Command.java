@@ -8,6 +8,8 @@ public class Command {
 
     String name = "Test";
 
+    ReturnType returnType = ReturnType.MessageSender;
+
     final Rank[] rankOrder = {Rank.Banned, Rank.Guest, Rank.User, Rank.Op, Rank.Admin};
 
     Rank minimumRank = Rank.Guest;

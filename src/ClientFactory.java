@@ -31,10 +31,12 @@ public class ClientFactory implements Runnable {
         }
         jServer.clients = new ArrayList<ClientWorker>();
         int id = 0;
+        Logger.logMessage("[Info]: Listening for clients on port: " + jServer.portNumber);
         while (isRunning) {
             try {
                 ClientWorker w;
                 w = new ClientWorker(jServer, id, jServer.serverSocket.accept());
+                Logger.logMessage("[Info]: Client joined, assigning id" + id);
                 jServer.addClient(w);
                 threads.add(w);
                 new Thread(w).start();
