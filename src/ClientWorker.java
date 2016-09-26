@@ -39,7 +39,9 @@ public class ClientWorker implements Runnable {
         isRunning = true;
         user = new User();
         nick = "Anon";
-        commands = new Command[] {new UserListCommand(jServer, id), new StopCommand(jServer, id), new SignInCommand(jServer, id), new SignUpCommand(jServer, id), new PromoteCommand(jServer, id), new PrivateMessageCommand(jServer, id), new SignOutCommand(jServer, id)};
+        commands = new Command[] {new UserListCommand(jServer, id), new StopCommand(jServer, id), new SignInCommand(jServer, id),
+                new SignUpCommand(jServer, id), new PromoteCommand(jServer, id), new PrivateMessageCommand(jServer, id), new SignOutCommand(jServer, id), new LobbyJoinCommand(jServer, id), new LobbyCreateCommand(jServer, id)
+        , new LobbyListCommand(jServer, id)};
         delay = 100;
         messages = new ArrayList();
         currentLobby = -1;

@@ -8,7 +8,9 @@ public class Lobby {
     int owner;
     String name;
     boolean isPublic;
-    public Lobby(String name, boolean isPublic, int creator) {
+    int id;
+    public Lobby(String name, boolean isPublic, int creator, int lobbyId) {
+        this.id = lobbyId;
         this.name = name;
         this.isPublic = isPublic;
         this.owner = creator;

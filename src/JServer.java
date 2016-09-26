@@ -121,6 +121,15 @@ public class JServer {
         return total.substring(0, total.length() - 1);
     }
 
+    public String getLobbyList () {
+        String total = "";
+        for (Lobby lobby: lobbys) {
+            total += ",c000000000," + lobby.name + " " + lobby.clients.size() + "\n" ;
+        }
+
+        return total.substring(0, total.length() - 1);
+    }
+
     public void sendMessage (String message, int id, int lobbyId) {
         ClientWorker client = getClient(id);
 
@@ -131,17 +140,17 @@ public class JServer {
             System.out.println(id + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
             for (ClientWorker c: clients) {
                 if (c.currentLobby == lobbyId) {
-                    c.sendMessage("c000000000," + id + " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c000000000,] " + "<" + client.nick + "> " + message);
+                    c.sendMessage("c000000000," + id  + " " + getLobbyName(lobbyId) +  " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c000000000,] " + "<" + client.nick + "> " + message);
                 }
             }
-            Logger.logMessage(id + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
+            Logger.logMessage(id + " " + lobbyId + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
         }
     }
 
     public void createLobby(int id, String name, boolean isPublic) {
-        Lobby lobby = new Lobby(name, isPublic, id);
+        Lobby lobby = new Lobby(name, isPublic, id, lobbys.size());
         lobbys.add(lobby);
-        getClient(id).currentLobby = lobbys.indexOf(lobby);
+        clients.get(id).currentLobby = lobbys.indexOf(lobby);
     }
 
     public void addToLobby(int lobbyId, int id) {
@@ -150,9 +159,22 @@ public class JServer {
         getClient(id).currentLobby = lobbyId;
     }
 
-    public int getLobby(String name) {
-
+    public int getLobbyInt(String name) {
+        for (Lobby lobby: lobbys) {
+            if (lobby.name.equals(name)) {
+                return lobbys.indexOf(lobby);
+            }
+        }
         return -1;
+    }
+
+    public String getLobbyName(int lobbyId) {
+        for (Lobby lobby: lobbys) {
+            if (lobby.id == lobbyId) {
+                return lobby.name;
+            }
+        }
+        return "General";
     }
 
 }

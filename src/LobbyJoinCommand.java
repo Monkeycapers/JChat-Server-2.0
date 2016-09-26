@@ -8,7 +8,7 @@ public class LobbyJoinCommand extends Command {
         this.name = "/joinlobby";
         this.minimumRank = Rank.User;
         this.clientId = id;
-        this.returnType = ReturnType.MessageNone;
+        this.returnType = ReturnType.MessageSender;
     }
     @Override
     public String parse(String message, User user) {
@@ -17,12 +17,13 @@ public class LobbyJoinCommand extends Command {
         }
         try {
             String[] split = message.split(",");
-            String name = split[3];
-
+            String name = split[2];
+            jServer.addToLobby(jServer.getLobbyInt(name), clientId);
+            return "Joined lobby.";
         }
         catch (Exception e) {
             return "Invalid usage of command: " + name;
         }
-        return "";
+        //return "";
     }
 }
