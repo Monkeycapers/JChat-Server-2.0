@@ -77,8 +77,27 @@ public class JServer {
             }
         }
         if (index != -1) {
+
+            int currentLobby = 0;
+            //try {
+                currentLobby = getClient(clientId).currentLobby;
+            //}
+            //catch (Exception e) {
+
+            //}
+
+            if (currentLobby != -1) {
+                lobbys.get(currentLobby).removeClient(clientId);
+                if (lobbys.get(currentLobby).clients.isEmpty()) {
+                    removeLobby(currentLobby);
+                }
+            }
             clients.remove(index);
         }
+    }
+
+    public void removeLobby(int lobbyId) {
+        lobbys.remove(lobbyId);
     }
 
     public ClientWorker getClient (int clientId) {
@@ -149,6 +168,7 @@ public class JServer {
 
     public void createLobby(int id, String name, boolean isPublic) {
         Lobby lobby = new Lobby(name, isPublic, id, lobbys.size());
+        System.out.println("?c");
         lobbys.add(lobby);
         clients.get(id).currentLobby = lobbys.indexOf(lobby);
     }

@@ -21,4 +21,16 @@ public class Lobby {
         this.name = "";
         this.isPublic = true;
     }
+    public void removeClient(int clientId) {
+        int index = clients.indexOf(clientId);
+        if (index != -1) {
+            clients.remove((Object)(clientId));
+        }
+        else {
+            return;
+        }
+        if ((owner == clientId) && !(clients.isEmpty())) {
+            owner = (int)(clients.get(0));
+        }
+    }
 }

@@ -18,7 +18,14 @@ public class LobbyJoinCommand extends Command {
         try {
             String[] split = message.split(",");
             String name = split[2];
-            jServer.addToLobby(jServer.getLobbyInt(name), clientId);
+            int lobbyId = jServer.getLobbyInt(name);
+            if (lobbyId == -1) {
+                jServer.getClient(clientId).currentLobby = -1;
+            }
+            else {
+                jServer.addToLobby(lobbyId, clientId);
+            }
+
             return "Joined lobby.";
         }
         catch (Exception e) {
