@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by Evan on 9/22/2016.
  */
 public class Logger {
-    public static String logFile = System.getProperty("user.home") + "\\AppData\\Roaming\\JChat\\Server\\Logs\\" +  new SimpleDateFormat("dd-MM-yyyy").format(new Date()) + "JChat.log";
+    public static String logFile = System.getProperty("user.home") + "\\AppData\\Roaming\\JChat\\Server\\Logs\\" + new SimpleDateFormat("yyyy").format(new Date()) + "\\" + new SimpleDateFormat("MMMM").format(new Date()) + "\\" +   new SimpleDateFormat("dd").format(new Date()) + " JChat.log";
 
     public static void logMessage(String message) {
         try {
@@ -24,7 +24,7 @@ public class Logger {
             }
             br.close();
             PrintWriter pw = new PrintWriter(new FileWriter(file));
-            pw.println(total + message);
+            pw.println(total + new SimpleDateFormat("[MMMM dd yyyy hh:mm.ss a]").format(new Date()) + " " +  message);
             pw.close();
         }
         catch (Exception e) {

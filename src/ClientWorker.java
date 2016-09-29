@@ -93,7 +93,16 @@ public class ClientWorker implements Runnable {
                     String name = split[1];
                     for (Command c : commands) {
                         if (c.name.equals(name)) {
-                            Logger.logMessage("[Info]: Client " + id + " [" + user.rank.name() + "] " + "(" + user.username + ") " + "<" + nick + "> " + "used command: " + c.name);
+                            String params = "";
+                            if (c.name.equals("/signin") || c.name.equals("/signup")) {
+                                params = split[2] + " apassword ";
+                            } else {
+                                for (String s : split) {
+                                    params += s + " ";
+                                }
+                            }
+
+                            Logger.logMessage("[Info]: Client " + id + " [" + user.rank.name() + "] " + "(" + user.username + ") " + "<" + nick + "> " + "used command: " + c.name + " with params: " + params);
                             String message = c.parse(line, user);
                             if (c.returnType == ReturnType.MessageSender) {
                                 sendMessage("c000000000,[Server] to you: " + message);

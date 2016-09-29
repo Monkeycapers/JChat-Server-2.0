@@ -176,7 +176,7 @@ public class JServer {
                     c.sendMessage("c000000000," + id  + " " + getLobbyName(lobbyId) +  " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c000000000,] " + "<" + client.nick + "> " + message);
                 }
             }
-            Logger.logMessage(id + " " + lobbyId + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
+            Logger.logMessage(id + " " + getLobbyName(lobbyId) + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
         }
     }
 
