@@ -87,8 +87,8 @@ public class JServer {
             //}
 
             if (currentLobby != -1) {
-                lobbys.get(currentLobby).removeClient(clientId);
-                if (lobbys.get(currentLobby).clients.isEmpty()) {
+                getLobby(currentLobby).removeClient(clientId);
+                if (getLobby(currentLobby).clients.isEmpty()) {
                     removeLobby(currentLobby);
                 }
             }
@@ -97,7 +97,16 @@ public class JServer {
     }
 
     public void removeLobby(int lobbyId) {
-        lobbys.remove(lobbyId);
+        int index = 0;
+        int spot = 0;
+        for (Lobby lobby: lobbys) {
+            if (lobby.id == lobbyId) {
+                spot = index;
+            }
+            index++;
+        }
+
+        lobbys.remove(spot);
     }
 
     public ClientWorker getClient (int clientId) {
@@ -145,8 +154,13 @@ public class JServer {
         for (Lobby lobby: lobbys) {
             total += ",c000000000," + lobby.name + " " + lobby.clients.size() + "\n" ;
         }
+        if (total.equals("")) {
+            return "No current lobbys.";
+        }
+        else {
+            return total.substring(0, total.length() - 1);
+        }
 
-        return total.substring(0, total.length() - 1);
     }
 
     public void sendMessage (String message, int id, int lobbyId) {
@@ -170,11 +184,21 @@ public class JServer {
         Lobby lobby = new Lobby(name, isPublic, id, lobbys.size());
         System.out.println("?c");
         lobbys.add(lobby);
-        clients.get(id).currentLobby = lobbys.indexOf(lobby);
+        System.out.println("?c2");
+        getClient(id).currentLobby = lobby.id;
+    }
+
+    public Lobby getLobby(int lobbyId) {
+        for (Lobby lobby: lobbys) {
+            if (lobby.id == lobbyId) {
+                return lobby;
+            }
+        }
+        return null;
     }
 
     public void addToLobby(int lobbyId, int id) {
-        Lobby lobby = lobbys.get(lobbyId);
+        Lobby lobby = getLobby(lobbyId);
         lobby.clients.add(id);
         getClient(id).currentLobby = lobbyId;
     }
@@ -182,7 +206,7 @@ public class JServer {
     public int getLobbyInt(String name) {
         for (Lobby lobby: lobbys) {
             if (lobby.name.equals(name)) {
-                return lobbys.indexOf(lobby);
+                return lobby.id;
             }
         }
         return -1;

@@ -7,10 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58f6861c-9933-4ea0-858d-34c4dc7db5c6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ClientWorker.java" afterPath="$PROJECT_DIR$/src/ClientWorker.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JServer.java" afterPath="$PROJECT_DIR$/src/JServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Lobby.java" afterPath="$PROJECT_DIR$/src/Lobby.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LobbyJoinCommand.java" afterPath="$PROJECT_DIR$/src/LobbyJoinCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LobbyListCommand.java" afterPath="$PROJECT_DIR$/src/LobbyListCommand.java" />
     </list>
     <ignored path="JChat Server 2.0.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,12 +33,10 @@
       <file leaf-file-name="JServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/JServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47982708">
-              <caret line="170" column="30" selection-start-line="170" selection-start-column="30" selection-end-line="170" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.4631579">
+              <caret line="182" column="14" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2529#2530#0" expanded="true" />
-                <element signature="e#2567#2568#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -72,7 +68,7 @@
         <entry file="file://$PROJECT_DIR$/src/Lobby.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="42" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,7 +118,7 @@
         <entry file="file://$PROJECT_DIR$/src/LobbyListCommand.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+              <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -174,10 +170,10 @@
         <option value="$PROJECT_DIR$/src/LobbyCreate.java" />
         <option value="$PROJECT_DIR$/src/LobbyJoin.java" />
         <option value="$PROJECT_DIR$/src/LobbyCreateCommand.java" />
-        <option value="$PROJECT_DIR$/src/LobbyListCommand.java" />
         <option value="$PROJECT_DIR$/src/LobbyJoinCommand.java" />
         <option value="$PROJECT_DIR$/src/ClientWorker.java" />
         <option value="$PROJECT_DIR$/src/Lobby.java" />
+        <option value="$PROJECT_DIR$/src/LobbyListCommand.java" />
         <option value="$PROJECT_DIR$/src/JServer.java" />
       </list>
     </option>
@@ -618,8 +614,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2529#2530#0" expanded="true" />
-            <element signature="e#2567#2568#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -705,8 +699,6 @@
           <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2529#2530#0" expanded="true" />
-            <element signature="e#2567#2568#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -775,8 +767,6 @@
           <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2529#2530#0" expanded="true" />
-            <element signature="e#2567#2568#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -926,34 +916,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LobbyListCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CardGamePlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LobbyJoinCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="62" selection-start-line="22" selection-start-column="62" selection-end-line="22" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Lobby.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="42" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -968,6 +934,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/LobbyJoinCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="62" selection-start-line="22" selection-start-column="62" selection-end-line="22" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Lobby.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LobbyListCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/LobbyCreateCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -978,12 +968,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47982708">
-          <caret line="170" column="30" selection-start-line="170" selection-start-column="30" selection-end-line="170" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.4631579">
+          <caret line="182" column="14" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2529#2530#0" expanded="true" />
-            <element signature="e#2567#2568#0" expanded="true" />
           </folding>
         </state>
       </provider>

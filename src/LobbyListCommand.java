@@ -18,6 +18,8 @@ public class LobbyListCommand extends Command {
             return jServer.getLobbyList();
         }
         catch (Exception e) {
+
+            System.err.println(e.getMessage());
             return "Invalid usage of command: lobbys";
         }
         //return "";
