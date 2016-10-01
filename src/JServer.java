@@ -28,6 +28,8 @@ public class JServer {
 
     ArrayList<Lobby> lobbys;
 
+    String cString = "c255255255";
+
     public static void main (String[] args) {
         new JServer(Integer.parseInt(args[0]));
     }
@@ -143,7 +145,7 @@ public class JServer {
     public String getUserList () {
         String total = "";
         for (ClientWorker client: clients) {
-            total += ",c000000000," + client.id + " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank + ",c000000000,] " + "(" + client.user.username + ") " + client.nick + "\n";
+            total += ",c255255255," + client.id + " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank + "," + cString + ",] " + "(" + client.user.username + ") " + client.nick + "\n";
         }
 
         return total.substring(0, total.length() - 1);
@@ -152,7 +154,7 @@ public class JServer {
     public String getLobbyList () {
         String total = "";
         for (Lobby lobby: lobbys) {
-            total += ",c000000000," + lobby.name + " " + lobby.clients.size() + "\n" ;
+            total += ",c255255255," + lobby.name + " " + lobby.clients.size() + "\n" ;
         }
         if (total.equals("")) {
             return "No current lobbys.";
@@ -167,13 +169,13 @@ public class JServer {
         ClientWorker client = getClient(id);
 
         if ((client.user.rank == Rank.Guest) && !guestChat) {
-            client.sendMessage("c000000000,Guest chat is not allowed on this server.");
+            client.sendMessage("c255255255,Guest chat is not allowed on this server.");
         }
         else {
             System.out.println(id + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
             for (ClientWorker c: clients) {
                 if (c.currentLobby == lobbyId) {
-                    c.sendMessage("c000000000," + id  + " " + getLobbyName(lobbyId) +  " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c000000000,] " + "<" + client.nick + "> " + message);
+                    c.sendMessage("c255255255," + id  + " " + getLobbyName(lobbyId) +  " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c255255255,] " + "<" + client.nick + "> " + message);
                 }
             }
             Logger.logMessage(id + " " + getLobbyName(lobbyId) + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);

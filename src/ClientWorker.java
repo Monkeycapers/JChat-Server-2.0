@@ -105,10 +105,10 @@ public class ClientWorker implements Runnable {
                             Logger.logMessage("[Info]: Client " + id + " [" + user.rank.name() + "] " + "(" + user.username + ") " + "<" + nick + "> " + "used command: " + c.name + " with params: " + params);
                             String message = c.parse(line, user);
                             if (c.returnType == ReturnType.MessageSender) {
-                                sendMessage("c000000000,[Server] to you: " + message);
+                                sendMessage(jServer.cString + ",[Server] to you: " + message);
                             }
                             else if (c.returnType == ReturnType.MessageAll) {
-                                jServer.sendMessage("c000000000," + message, id, currentLobby);
+                                jServer.sendMessage(jServer.cString + "," + message, id, currentLobby);
                             }
                             else {
                                 //do nothing with the parsed command

@@ -30,7 +30,7 @@ public class SignInCommand extends Command {
             }
             else {
                 jServer.getClient(clientId).user = u;
-                return "Logged in. You are a: [," + JServer.parseColor(jServer.rankColors.get(u.rank)) + "," + u.rank.name() + ",c000000000,].";
+                return "Logged in. You are a: [," + JServer.parseColor(jServer.rankColors.get(u.rank)) + "," + u.rank.name() + "," + jServer.cString + ",].";
             }
 
         }
