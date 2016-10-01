@@ -19,8 +19,6 @@ public class ClientWorker implements Runnable {
     int delay;
 
     boolean isRunning;
-    String message;
-    boolean pendingMessage;
 
     User user;
 
@@ -31,6 +29,8 @@ public class ClientWorker implements Runnable {
     ArrayList messages;
 
     int currentLobby;
+
+    ServerMessageSender serverMessageSender;
 
     public ClientWorker (JServer jServer, int id, Socket socket) {
         this.client = socket;
@@ -48,8 +48,6 @@ public class ClientWorker implements Runnable {
     }
 
     public void run() {
-        message = "c000000000,JChat Server 2.0";
-        pendingMessage = true;
         //Handle connections with clients
         DataInputStream in = null;
         DataOutputStream out = null;
@@ -57,29 +55,19 @@ public class ClientWorker implements Runnable {
         try {
             in = new DataInputStream(client.getInputStream());
             out = new DataOutputStream(client.getOutputStream());
+            serverMessageSender = new ServerMessageSender(out);
+            //Todo: MessageOfTheDaySupport
+            serverMessageSender.send("c255255255,JChat Server");
             Logger.logMessage("[Info]: Client info: " + client.getLocalAddress().toString());
         }
         catch (Exception e) {
             System.out.println("Could not create in/out streams");
         }
         while (isRunning) {
-            //send message out
-            try {
-                if (pendingMessage) {
-                    out.writeUTF(message);
-                    pendingMessage = false;
-                }
-                else {
-                    out.writeUTF("Alive");
-                }
-                message = "";
-            }
-            catch (IOException e) {
-                disconnect();
-            }
             //read message in
             try {
                 String line = in.readUTF();
+                //System.out.println("Line: " + line);
                 String split[] = line.split(",");
                 nick = split[0];
                 if (split[1].startsWith("Alive")) {
@@ -127,9 +115,7 @@ public class ClientWorker implements Runnable {
     }
 
     public void sendMessage(String message) {
-        this.message += message;
-        //messages.add(message);
-        pendingMessage = true;
+        serverMessageSender.send(message);
     }
 
     public void disconnect() {
