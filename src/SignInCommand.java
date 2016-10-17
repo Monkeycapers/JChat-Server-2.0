@@ -15,7 +15,7 @@ public class SignInCommand extends Command {
             return "Rank is lower than the minimum rank. Min rank is " + minimumRank.name() + ", got " + user.rank.name();
         }
         try {
-            String[] split = message.split(",");
+            String[] split = message.split(" ");
             try {
                 if (jServer.containsClient(split[2])) {
                     return "User already exists";

@@ -1,9 +1,14 @@
+import org.java_websocket.WebSocket;
+
+import javax.xml.ws.Endpoint;
+import javax.xml.ws.http.HTTPBinding;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * Created by Evan on 8/30/2016.
@@ -30,6 +35,8 @@ public class JServer {
 
     String cString = "c255255255";
 
+    WebSocketFactory webSocketFactory;
+
     public static void main (String[] args) {
         new JServer(Integer.parseInt(args[0]));
     }
@@ -38,8 +45,12 @@ public class JServer {
         setupRankColor();
         this.portNumber = portNumber;
         clientFactory = new ClientFactory(this);
+        //http = new httpWorker(8000);
         clients = new ArrayList<ClientWorker>();
         lobbys = new ArrayList<Lobby>();
+        webSocketFactory = new WebSocketFactory(8080, this);
+        webSocketFactory.start();
+
         new Thread(clientFactory).start();
     }
 
@@ -174,6 +185,8 @@ public class JServer {
         else {
             System.out.println(id + " [" + client.user.rank.name() + "] " + "<" + client.nick + "> " + message);
             for (ClientWorker c: clients) {
+
+                //Todo: See if the message is being sent to one or all lobby(s)
                 if (c.currentLobby == lobbyId) {
                     c.sendMessage("c255255255," + id  + " " + getLobbyName(lobbyId) +  " [,c" + parseColor(rankColors.get(client.user.rank)) + "," + client.user.rank.name() + ",c255255255,] " + "<" + client.nick + "> " + message);
                 }
@@ -221,6 +234,17 @@ public class JServer {
             }
         }
         return "General";
+    }
+
+    public ClientWorker getClient(WebSocket webSocket) {
+        for (ClientWorker c: clients) {
+            if (c.connectionType) {
+                if (c.webSocket.equals(webSocket)) {
+                    return c;
+                }
+            }
+        }
+        return null;
     }
 
 }

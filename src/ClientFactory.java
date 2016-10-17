@@ -1,3 +1,5 @@
+import org.java_websocket.WebSocket;
+
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.jar.Pack200;
@@ -12,6 +14,8 @@ public class ClientFactory implements Runnable {
     ArrayList threads;
 
     boolean isRunning;
+
+    int id;
 
 
 
@@ -30,7 +34,7 @@ public class ClientFactory implements Runnable {
             System.out.println("Could not create a socket");
         }
         jServer.clients = new ArrayList<ClientWorker>();
-        int id = 0;
+        id = 0;
         Logger.logMessage("[Info]: Listening for clients on port: " + jServer.portNumber);
         while (isRunning) {
             try {
@@ -45,6 +49,21 @@ public class ClientFactory implements Runnable {
             catch (Exception e) {
                 System.out.println("Could not connect");
             }
+        }
+    }
+
+    public void addWebClient(WebSocket webSocket) {
+        try {
+            ClientWorker w;
+            w = new ClientWorker(jServer, id, webSocket);
+            Logger.logMessage("[Info]: Client joined, assigning id" + id);
+            jServer.addClient(w);
+            threads.add(w);
+            new Thread(w).start();
+            id ++;
+        }
+        catch (Exception e) {
+            System.out.println("Could not connect");
         }
     }
 
